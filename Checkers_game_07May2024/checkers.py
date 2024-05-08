@@ -10,7 +10,7 @@ def build_board(size):
 
     # creating a new board of shape 'size' by assigning checker strings randomly
     options = ["Empty", "Red", "Black"]
-    checker_board = numpy.random.choice(options, (size, size))
+    checker_board = random.choice(options, (size, size))
     return checker_board
 
 
@@ -31,13 +31,13 @@ def get_count(bd):
 
 # Defining change_size function
 def change_size(bd, shape):
-    board = numpy.resize(bd, (shape, shape))
+    board = resize(bd, (shape, shape))
     return board
 
 
 # Defining pivot function
 def pivot(bd):
-    pivot_bd = numpy.transpose(bd)
+    pivot_bd = transpose(bd)
     return pivot_bd
 
 
