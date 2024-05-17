@@ -1,0 +1,153 @@
+Q1  Select all the records from the customers table.
+
+SELECT * 
+FROM customers
+
+Q2 Get distinct countries from the customers table.
+
+SELECT DISTINCT country
+FROM customers
+
+Q3 Get all the records from the table customers where the customer_id starts with “BL”.
+
+SELECT *
+FROM customers
+WHERE customer_id LIKE 'BL%'
+
+Q4  Get the first 100 records of the orders table.
+
+SELECT  *
+FROM orders
+LIMIT 100
+
+Q5 Get all customers that live in the postal codes 1010, 3012, 12209, and 05023
+
+SELECT *
+FROM customers
+WHERE postal_code = '1010' or postal_code = '3012' or postal_code = '12209' or postal_code = '05023';
+
+Q6 Get all orders where the ShipRegion is not equal to NULL.
+
+SELECT *
+FROM orders
+WHERE ship_region is not null
+
+Q7 Get all customers ordered by the country, then by the city.
+
+SELECT *
+FROM customers
+ORDER BY country, city
+
+Q8 Add a new customer to the customers table. You can use whatever values/
+
+#to check for column names
+SELECT *
+FROM customers
+#adding values to the table
+INSERT INTO customers(customer_id, company_name, contact_name, address, city, postal_code, country, phone)
+VALUES('JIMMY', 'Jimmy Johns', 'Agnes Campbell', '123 Great Blvd', 'Marseille', '13008', 'France', '91.32.35.78' )
+#checking for inserted values
+SELECT *
+FROM customers
+
+Q9 Update all ship_region to the value 'EuroZone' in the orders table, where the ship_country is 'France'.  
+
+UPDATE orders
+SET ship_region = 'Eurozone'
+WHERE ship_country = 'France'
+
+#checking for updated orders
+SELECT *
+FROM orders
+
+Q10  Delete all rows from order_details that have a quantity of 1. 
+
+#to check for column names
+SELECT *
+FROM order_details
+
+#delete order_details
+DELETE FROM order_details WHERE quantity = 1
+
+#checking for deleted values
+SELECT *
+FROM order_details
+
+Q11 Calculate the average, max, and min of the quantity in the order_details table.
+
+SELECT AVG(quantity) as AVERAGE, MAX(quantity) as MAXIMUM, MIN(quantity) AS MINIMUM
+FROM order_details
+
+Q12 Calculate the average, max, and min of the quantity in the order_details table, grouped by the order_id. 
+
+SELECT order_id, AVG(quantity) as AVERAGE, MAX(quantity) as MAXIMUM, MIN(quantity) AS MINIMUM
+FROM order_details
+GROUP BY order_id
+
+Q13 Find the customer_id that placed order 10290 (orders table)
+
+SELECT order_id, customer_id
+FROM orders
+WHERE order_id = 10290
+
+Q14 Do an inner join, left join, right join on orders and customers tables.
+
+##INNER JOIN 
+
+SELECT *
+FROM orders as o
+JOIN customers as c ON o.customer_id = c.customer_id
+
+
+##LEFT JOIN 
+
+SELECT *
+FROM orders as o
+LEFT JOIN customers as c ON o.customer_id = c.customer_id
+
+
+##RIGHT JOIN 
+
+SELECT *
+FROM orders as o
+RIGHT JOIN customers as c ON o.customer_id = c.customer_id
+
+Q15 Use a join to get the ship_city and ship_country of all the orders which are associated with an employee who is in London.
+
+#to check for column names
+SELECT * 
+FROM employees
+
+# creating join
+SELECT o.employee_id, o.ship_city, o.ship_country
+FROM orders as o
+JOIN employees as e 
+ON o.employee_id = e.employee_id
+WHERE e.city = 'London'
+ORDER BY o.employee_id
+
+Q16 Use a join to get the ship_name of all orders that include a discontinued product.
+(See orders, order_details, and products. 1 means discontinued.)
+
+SELECT p.product_id as product_id, p.discontinued as discontnued, o.ship_name as ship_name
+FROM products as p
+JOIN order_details as od ON p.product_id = od.product_id
+JOIN orders as o  ON od.order_id = o.order_id
+WHERE p.discontinued = 1
+
+Q17 Get first names of all employees who report to no one.
+
+SELECT first_name
+FROM employees
+WHERE reports_to is null
+
+Q18 Get first names of all employees who report to 'Andrew'.
+
+SELECT first_name
+FROM employees
+WHERE reports_to = 2
+
+Q19 Write an SQL command to create an index on the customer_id column in the orders table.
+
+CREATE INDEX customer_id_index
+ON orders (customer_id);
