@@ -70,7 +70,7 @@ Extended Challenges:
 
 14. Count all people with at least one child under age four. (69)
 
-db.people.find( {children: [ { age: {$lt: 4} } ] } )  ##not completed
+db.people.find( {'children.age': {$lt:4}} )
 
 
 15. List people who have no children. (43)
@@ -81,7 +81,7 @@ db.people.find({children: []})
 16. List people who have at least one child. (157)
 
 
-db.people.find({children: {$gt: 1}}) ##not completed
+db.people.find( {children: {$gt: [0] }} )
 
-
+db.people.find({children: {$ne: [] } })
 
